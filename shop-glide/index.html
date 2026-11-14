@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Shop — Glide Kit | Maven Dex Corps</title>
+  <meta name="description" content="Style prototype: moon-glow glide kit for The Shop enchantment storefront." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to counter</a>
+
+  <div class="moon-window" role="status" aria-label="Moon window">
+    <span class="moon-window__orb" aria-hidden="true"></span>
+    <p class="moon-window__text">The Shop · Maven Dex Corps · Enchantments worked &amp; shipped</p>
+  </div>
+
+  <header class="hero" id="top">
+    <canvas class="hero__sky" id="starfield" aria-hidden="true"></canvas>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__copy">
+      <p class="hero__brand">The Shop</p>
+      <h1 class="hero__headline">Enchantments at the counter</h1>
+      <p class="hero__lede">
+        Workings, Axiom readings, standing orders, and goods dressed to leave the bench —
+        a Maven Dex Corps storefront, shown here as a glide pattern book.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--glow" href="#workings">Browse the shelf</a>
+        <a class="btn btn--ghost" href="#knock">Try the Knock</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" id="workings" data-reveal>
+      <header class="section__head">
+        <h2>Spell workings</h2>
+        <p>Hand-done on the bench. Hover a card for candle-flicker.</p>
+      </header>
+      <ul class="shelf" role="list">
+        <li class="shelf-card" data-stagger>
+          <h3>Vigil Light</h3>
+          <p>A kept flame for watch and waiting.</p>
+        </li>
+        <li class="shelf-card" data-stagger>
+          <h3>Protection</h3>
+          <p>Ward the threshold; steady the walls.</p>
+        </li>
+        <li class="shelf-card" data-stagger>
+          <h3>Road-Opening</h3>
+          <p>Clear the path that wants to move.</p>
+        </li>
+        <li class="shelf-card" data-stagger>
+          <h3>Uncrossing</h3>
+          <p>Loosen what was knotted against you.</p>
+        </li>
+        <li class="shelf-card" data-stagger>
+          <h3>Steady Hand</h3>
+          <p>Calm the shake; keep the craft true.</p>
+        </li>
+        <li class="shelf-card" data-stagger>
+          <h3>Luck &amp; Favor</h3>
+          <p>Invite the turn that leans your way.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section section--axiom" id="axiom" data-reveal>
+      <header class="section__head">
+        <h2>Axiom deck</h2>
+        <p>Tarot from the house deck — Morning Post, Deep, and the Knock.</p>
+      </header>
+      <ul class="reading-list" role="list">
+        <li class="reading-item" data-reveal>
+          <h3>Morning Post</h3>
+          <p>One free daily card. The draw stays with this browser.</p>
+        </li>
+        <li class="reading-item" data-reveal>
+          <h3>Deep reading</h3>
+          <p>A fuller spread when the question needs room.</p>
+        </li>
+        <li class="reading-item" data-reveal>
+          <h3>The Knock</h3>
+          <p>Three cards. Tap to flip — soar, turn, settle.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section section--knock" id="knock" data-reveal>
+      <header class="section__head">
+        <h2>3-card Knock</h2>
+        <p>Click a card to flip it. Demo motion only — no draw logic.</p>
+      </header>
+      <div class="knock" role="group" aria-label="Three-card Knock demo">
+        <button type="button" class="knock-card" data-knock aria-pressed="false" aria-label="Knock card one, face down">
+          <span class="knock-card__face knock-card__face--back" aria-hidden="true">
+            <span class="knock-card__sigil">◇</span>
+            <span class="knock-card__label">Axiom</span>
+          </span>
+          <span class="knock-card__face knock-card__face--front" aria-hidden="true">
+            <span class="knock-card__title">The Threshold</span>
+            <span class="knock-card__hint">What stands before you</span>
+          </span>
+        </button>
+        <button type="button" class="knock-card" data-knock aria-pressed="false" aria-label="Knock card two, face down">
+          <span class="knock-card__face knock-card__face--back" aria-hidden="true">
+            <span class="knock-card__sigil">◇</span>
+            <span class="knock-card__label">Axiom</span>
+          </span>
+          <span class="knock-card__face knock-card__face--front" aria-hidden="true">
+            <span class="knock-card__title">The Working</span>
+            <span class="knock-card__hint">What is in motion</span>
+          </span>
+        </button>
+        <button type="button" class="knock-card" data-knock aria-pressed="false" aria-label="Knock card three, face down">
+          <span class="knock-card__face knock-card__face--back" aria-hidden="true">
+            <span class="knock-card__sigil">◇</span>
+            <span class="knock-card__label">Axiom</span>
+          </span>
+          <span class="knock-card__face knock-card__face--front" aria-hidden="true">
+            <span class="knock-card__title">The Favor</span>
+            <span class="knock-card__hint">What leans toward you</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" id="standing" data-reveal>
+      <header class="section__head">
+        <h2>Standing Order</h2>
+        <p>A monthly working that returns on schedule.</p>
+      </header>
+      <div class="panel">
+        <p>
+          Standing Order keeps a chosen working on the calendar — same bench,
+          regular return — so the counter remembers what you asked to keep lit.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="goods" data-reveal>
+      <header class="section__head">
+        <h2>Shipped goods</h2>
+        <p>Dressed on the bench, then sent out.</p>
+      </header>
+      <ul class="goods" role="list">
+        <li data-reveal>Dressed 7-day candles</li>
+        <li data-reveal>Condition oils</li>
+        <li data-reveal>Charm bags</li>
+        <li data-reveal>Pet collar charms</li>
+        <li data-reveal>The Knock Box</li>
+      </ul>
+    </section>
+
+    <section class="section" id="house" data-reveal>
+      <header class="section__head">
+        <h2>House blessings &amp; investigations</h2>
+        <p>When the work is for a place, or for what needs looking into.</p>
+      </header>
+      <div class="panel panel--split">
+        <div>
+          <h3>House blessings</h3>
+          <p>Settle a dwelling; mark the doors with care.</p>
+        </div>
+        <div>
+          <h3>Investigations</h3>
+          <p>Follow the thread when something asks to be found.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <p>Glide kit prototype · Maven Dex Corps · Pattern book for The Shop</p>
+    <a href="#top">Back to moon</a>
+  </footer>
+
+  <script src="glide.js" defer></script>
+</body>
+</html>
