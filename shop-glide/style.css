@@ -1,0 +1,591 @@
+/* The Shop — glide kit
+   Warm night counter: ink navy, honey candle, moon silver.
+   Motion uses transform/opacity only. */
+
+:root {
+  --ink: #0b1220;
+  --ink-deep: #060a12;
+  --night: #121c2e;
+  --slate: #1a2740;
+  --moon: #e8eef8;
+  --moon-dim: #b7c3d9;
+  --honey: #e6b35a;
+  --honey-soft: #f0d090;
+  --ember: #c97a3a;
+  --cream: #f4efe6;
+  --line: rgba(232, 238, 248, 0.12);
+  --glow-candle: rgba(230, 179, 90, 0.45);
+  --glow-moon: rgba(200, 220, 255, 0.35);
+  --radius: 14px;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-body: "Avenir Next", Avenir, "Century Gothic", "Trebuchet MS", sans-serif;
+  --ease-soar: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-settle: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #1c2a44 0%, transparent 55%),
+    radial-gradient(80% 50% at 100% 30%, rgba(230, 179, 90, 0.08), transparent 45%),
+    linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 40%, #0e1624 100%);
+  background-attachment: fixed;
+}
+
+img,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--honey-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--cream);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--honey);
+  color: var(--ink-deep);
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* —— Moon-window banner —— */
+.moon-window {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(90deg, rgba(6, 10, 18, 0.92), rgba(18, 28, 46, 0.88), rgba(6, 10, 18, 0.92));
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.moon-window__orb {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, var(--moon-dim) 55%, #8a9bb8 100%);
+  box-shadow:
+    0 0 10px var(--glow-moon),
+    0 0 22px rgba(180, 200, 255, 0.25);
+  animation: moon-pulse 4.5s ease-in-out infinite;
+}
+
+.moon-window__text {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--moon-dim);
+}
+
+@keyframes moon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+    box-shadow:
+      0 0 8px var(--glow-moon),
+      0 0 16px rgba(180, 200, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+    box-shadow:
+      0 0 14px var(--glow-moon),
+      0 0 28px rgba(180, 200, 255, 0.35);
+  }
+}
+
+/* —— Hero —— */
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(92vh, 820px);
+  display: grid;
+  place-items: end stretch;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 18%, rgba(232, 238, 248, 0.18), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 70% 40%, rgba(230, 179, 90, 0.12), transparent 70%),
+    linear-gradient(180deg, #0a101c 0%, #101a2c 55%, #0b1220 100%);
+}
+
+.hero__sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 35%, rgba(6, 10, 18, 0.55) 70%, rgba(6, 10, 18, 0.92) 100%),
+    radial-gradient(ellipse 50% 40% at 50% 22%, rgba(255, 255, 255, 0.08), transparent 70%);
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 42rem;
+  padding: 4rem 1.5rem 3.5rem;
+  margin: 0 auto 0 0;
+  width: min(100%, 720px);
+  padding-left: clamp(1.25rem, 6vw, 4.5rem);
+}
+
+.hero__brand {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--moon);
+  text-shadow: 0 0 40px rgba(200, 220, 255, 0.25);
+}
+
+.hero__headline {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 500;
+  color: var(--honey-soft);
+}
+
+.hero__lede {
+  margin: 0 0 1.6rem;
+  max-width: 34rem;
+  color: var(--moon-dim);
+  font-size: 1.02rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.35s var(--ease-settle), box-shadow 0.35s ease, background 0.35s ease, color 0.35s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--glow {
+  background: linear-gradient(135deg, var(--honey), var(--ember));
+  color: var(--ink-deep);
+  box-shadow: 0 0 24px rgba(230, 179, 90, 0.35);
+}
+
+.btn--glow:hover {
+  color: var(--ink-deep);
+  box-shadow: 0 0 36px rgba(230, 179, 90, 0.5);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--moon);
+}
+
+.btn--ghost:hover {
+  border-color: var(--moon-dim);
+  color: var(--cream);
+}
+
+/* —— Sections —— */
+.section {
+  padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 4rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section__head {
+  margin-bottom: 2rem;
+  max-width: 36rem;
+}
+
+.section__head h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 600;
+  color: var(--moon);
+}
+
+.section__head p {
+  margin: 0;
+  color: var(--moon-dim);
+}
+
+/* —— Shelf cards —— */
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.shelf-card {
+  position: relative;
+  padding: 1.35rem 1.25rem 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(165deg, rgba(232, 238, 248, 0.06), transparent 55%),
+    linear-gradient(180deg, var(--slate), var(--night));
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    transform 0.7s var(--ease-soar),
+    opacity 0.7s var(--ease-soar),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+  will-change: transform, opacity;
+}
+
+.shelf-card.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shelf-card h3 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--honey-soft);
+}
+
+.shelf-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--moon-dim);
+}
+
+.shelf-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 18% -1px 18%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--honey), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.shelf-card:hover {
+  border-color: rgba(230, 179, 90, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(230, 179, 90, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 0 28px var(--glow-candle);
+  animation: candle-flicker 1.8s ease-in-out infinite;
+}
+
+.shelf-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes candle-flicker {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(230, 179, 90, 0.12),
+      0 12px 40px rgba(0, 0, 0, 0.35),
+      0 0 22px rgba(230, 179, 90, 0.35);
+  }
+  40% {
+    box-shadow:
+      0 0 0 1px rgba(230, 179, 90, 0.18),
+      0 12px 40px rgba(0, 0, 0, 0.35),
+      0 0 34px rgba(240, 208, 144, 0.5);
+  }
+  70% {
+    box-shadow:
+      0 0 0 1px rgba(230, 179, 90, 0.1),
+      0 12px 40px rgba(0, 0, 0, 0.35),
+      0 0 18px rgba(201, 122, 58, 0.4);
+  }
+}
+
+/* —— Axiom reading list —— */
+.reading-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.reading-item {
+  padding: 1.15rem 1.25rem;
+  border-left: 2px solid var(--honey);
+  background: linear-gradient(90deg, rgba(230, 179, 90, 0.08), transparent 70%);
+}
+
+.reading-item h3 {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--moon);
+}
+
+.reading-item p {
+  margin: 0;
+  color: var(--moon-dim);
+  font-size: 0.95rem;
+}
+
+/* —— Knock cards —— */
+.knock {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+  perspective: 1200px;
+  max-width: 720px;
+}
+
+.knock-card {
+  position: relative;
+  aspect-ratio: 2 / 3.2;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.85s var(--ease-soar);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.knock-card:focus-visible {
+  outline: 2px solid var(--honey);
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+.knock-card.is-flipped {
+  transform: translateY(-18px) rotateY(180deg) scale(1.04);
+}
+
+.knock-card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.knock-card__face--back {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(230, 179, 90, 0.15), transparent 55%),
+    linear-gradient(160deg, #1e2b44, #0f1728);
+  color: var(--honey-soft);
+}
+
+.knock-card__face--front {
+  background:
+    linear-gradient(165deg, #f4efe6, #e4d7c2);
+  color: var(--ink);
+  transform: rotateY(180deg);
+}
+
+.knock-card__sigil {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.knock-card__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.knock-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+  text-align: center;
+}
+
+.knock-card__hint {
+  font-size: 0.78rem;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* —— Panels & goods —— */
+.panel {
+  padding: 1.5rem 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: rgba(18, 28, 46, 0.65);
+}
+
+.panel p {
+  margin: 0;
+  color: var(--moon-dim);
+}
+
+.panel h3 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  color: var(--honey-soft);
+}
+
+.panel--split {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .panel--split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.goods {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.goods li {
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(26, 39, 64, 0.7);
+  color: var(--moon);
+  font-size: 0.92rem;
+}
+
+/* —— Scroll reveal —— */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-settle), transform 0.8s var(--ease-settle);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 2rem clamp(1.25rem, 5vw, 4rem) 3rem;
+  border-top: 1px solid var(--line);
+  color: var(--moon-dim);
+  font-size: 0.88rem;
+}
+
+.site-foot p {
+  margin: 0;
+}
+
+/* —— Reduced motion —— */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .moon-window__orb,
+  .shelf-card:hover {
+    animation: none !important;
+  }
+
+  .shelf-card,
+  [data-reveal],
+  .knock-card,
+  .btn {
+    transition: none !important;
+  }
+
+  .shelf-card,
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .knock-card.is-flipped {
+    transform: rotateY(180deg);
+  }
+}
+
+@media (max-width: 520px) {
+  .knock {
+    grid-template-columns: 1fr;
+    max-width: 220px;
+    margin-inline: auto;
+  }
+
+  .hero__copy {
+    place-self: end center;
+    text-align: left;
+  }
+}
