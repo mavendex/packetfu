@@ -5,7 +5,7 @@ import sys
 from collections import Counter
 
 
-def collide(a: str, b: str) -> None:
+def collide(a: str, b: str, verbose: bool = False) -> None:
     left = a.lower()
     right = b.lower()
     set_a = set(c for c in left if c.isalpha())
@@ -23,12 +23,42 @@ def collide(a: str, b: str) -> None:
     print(f"unique to {b!r}: {''.join(only_b) if only_b else '(none)'}")
     print(f"anagram: {'yes' if anagram else 'no'}")
 
+    if verbose:
+        shared_set = set_a & set_b
+        print("breakdown:")
+        for word, lowered in ((a, left), (b, right)):
+            print(f"  {word}:")
+            for ch in lowered:
+                if not ch.isalpha():
+                    print(f"    {ch!r}: (ignored)")
+                    continue
+                if ch in shared_set:
+                    tag = "shared"
+                else:
+                    tag = f"unique to {word!r}"
+                print(f"    {ch}: {tag}")
+
+
+def parse_args(argv: list[str]) -> tuple[str, str, bool]:
+    verbose = False
+    words: list[str] = []
+    for arg in argv[1:]:
+        if arg == "--verbose":
+            verbose = True
+        elif arg.startswith("-"):
+            print(f"usage: {argv[0]} WORD1 WORD2 [--verbose]", file=sys.stderr)
+            sys.exit(1)
+        else:
+            words.append(arg)
+    if len(words) != 2:
+        print(f"usage: {argv[0]} WORD1 WORD2 [--verbose]", file=sys.stderr)
+        sys.exit(1)
+    return words[0], words[1], verbose
+
 
 def main() -> None:
-    if len(sys.argv) != 3:
-        print(f"usage: {sys.argv[0]} WORD1 WORD2", file=sys.stderr)
-        sys.exit(1)
-    collide(sys.argv[1], sys.argv[2])
+    a, b, verbose = parse_args(sys.argv)
+    collide(a, b, verbose=verbose)
 
 
 if __name__ == "__main__":
