@@ -1,0 +1,30 @@
+<!--
+  Draw card — tarot / rune flip for Magickqal
+  Demo motion only: toggle .is-flipped and aria-pressed on click.
+  Requires: dressing.css (+ tiny JS or framework state)
+-->
+<button
+  type="button"
+  class="dk-draw-card"
+  aria-pressed="false"
+  aria-label="Draw card, face down"
+>
+  <span class="dk-draw-card__face dk-draw-card__face--back" aria-hidden="true">
+    <span class="dk-draw-card__sigil">✦</span>
+    <span class="dk-draw-card__label">Magickqal</span>
+  </span>
+  <span class="dk-draw-card__face dk-draw-card__face--front" aria-hidden="true">
+    <span class="dk-draw-card__sigil">☾</span>
+    <span class="dk-draw-card__title">The Veil</span>
+    <span class="dk-draw-card__hint">What wants to be seen</span>
+  </span>
+</button>
+
+<!--
+  Minimal flip (vanilla):
+  card.addEventListener('click', () => {
+    const on = card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', String(on));
+    card.setAttribute('aria-label', on ? 'Draw card, The Veil' : 'Draw card, face down');
+  });
+-->
