@@ -569,6 +569,7 @@
   gap: clamp(0.75rem, 3vw, 1.5rem);
   perspective: 1200px;
   max-width: 720px;
+  padding-top: 1.25rem; /* room for soar-and-turn lift */
 }
 
 .dk-draw-card {
@@ -591,7 +592,7 @@
 }
 
 .dk-draw-card.is-flipped {
-  transform: translateY(-18px) rotateY(180deg) scale(1.04);
+  transform: translateY(-14px) rotateY(180deg) scale(1.02);
 }
 
 .dk-draw-card__face {
@@ -663,12 +664,11 @@
   padding: 0.55rem 1rem;
   background: linear-gradient(
     90deg,
-    rgba(12, 6, 20, 0.94),
-    rgba(42, 18, 64, 0.88),
-    rgba(12, 6, 20, 0.94)
+    var(--obsidian) 0%,
+    var(--violet) 50%,
+    var(--obsidian) 100%
   );
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(10px);
 }
 
 .dk-banner__candle {
