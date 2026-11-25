@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Felon Luv — Motion Layer Demo</title>
+  <link rel="stylesheet" href="../dressing.css" />
+  <link rel="stylesheet" href="felon-luv-motion.css" />
+  <style>
+    .flm-demo-section { position: relative; z-index: 1; padding: 3.5rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .flm-demo-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .flm-demo-card { padding: 1.25rem; border-radius: 14px; border: 1px solid rgba(224, 86, 168, 0.2); background: linear-gradient(180deg, #2a1240, #160a22); }
+    .flm-demo-card h3 { margin: 0 0 0.4rem; font-family: var(--font-display); color: #f0a8d0; }
+    .flm-demo-card p { margin: 0; color: var(--mist); font-size: 0.92rem; }
+    .flm-hero-wrap { position: relative; min-height: 70vh; display: grid; place-items: end stretch; overflow: hidden; background: #14081c; }
+    .flm-hero-inner { position: relative; z-index: 2; padding: 3rem 1.5rem 3rem; max-width: 36rem; }
+    .flm-hero-inner .brand { margin: 0; font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 4.2rem); color: #f3ebe0; }
+    .page-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #f0a8d0; }
+  </style>
+</head>
+<body class="dk-hall">
+  <!-- HOME -->
+  <header class="flm-hero-wrap flm-page-in" id="home">
+    <div class="flm-atmosphere" aria-hidden="true">
+      <span class="flm-orb" style="--flm-orb-size:170px; top:12%; left:10%; --flm-orb-dur:30s;"></span>
+      <span class="flm-orb flm-orb--soft" style="--flm-orb-size:130px; top:28%; right:14%; --flm-orb-dur:24s; --flm-orb-delay:-6s;"></span>
+      <span class="flm-orb" style="--flm-orb-size:90px; bottom:30%; left:40%; --flm-orb-dur:26s;"></span>
+      <span class="flm-spark flm-spark--bright" style="top:18%; left:32%;"></span>
+      <span class="flm-spark" style="top:22%; left:48%; --flm-spark-delay:-1s;"></span>
+      <span class="flm-spark" style="top:35%; left:22%; --flm-spark-delay:-2s;"></span>
+      <span class="flm-spark flm-spark--bright" style="top:40%; left:70%; --flm-spark-delay:-0.5s;"></span>
+      <span class="flm-spark" style="top:55%; left:60%; --flm-spark-delay:-3s;"></span>
+    </div>
+    <div class="flm-hero-inner flm-hero-copy">
+      <p class="page-label">Home · Felon Luv motion</p>
+      <p class="brand flm-wordmark">Felon Luv</p>
+      <span class="flm-pulse-line" aria-hidden="true"></span>
+      <h1 style="margin:0 0 0.75rem; font-family:var(--font-display); font-style:italic; color:#f0d080; font-size:1.5rem;">Find your spark in the dark</h1>
+      <p style="margin:0 0 1.2rem; color:var(--mist);">Soft hypnosis — pink orbs, spark dots, wordmark rising. Style only.</p>
+      <p><a class="dk-btn dk-btn--phantom" href="#discover">Open matches</a></p>
+    </div>
+  </header>
+
+  <!-- DISCOVER / MATCHES -->
+  <section class="flm-demo-section" id="discover">
+    <header class="flm-rise" data-flm-reveal>
+      <p class="page-label">Discover / Matches</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">Who’s here tonight</h2>
+      <p style="margin:0; color:var(--mist);">Cards cascade one after another. Hover for magenta breath.</p>
+    </header>
+    <ul class="flm-demo-grid" style="margin-top:1.5rem;" data-flm-cascade-group role="list">
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade>
+        <h3><span class="flm-ember" aria-hidden="true"></span> Nova</h3>
+        <p>Online · open to meet</p>
+      </li>
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade>
+        <h3><span class="flm-ember" aria-hidden="true"></span> Quill</h3>
+        <p>Online · glancing</p>
+      </li>
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade>
+        <h3><span class="flm-ember" aria-hidden="true"></span> Emberly</h3>
+        <p>Online · spark ready</p>
+      </li>
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade>
+        <h3><span class="flm-ember" aria-hidden="true"></span> Vex</h3>
+        <p>Away · back soon</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- SHOP -->
+  <section class="flm-demo-section" id="shop">
+    <header class="flm-rise" data-flm-reveal>
+      <p class="page-label">Shop</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">On the counter</h2>
+      <p style="margin:0; color:var(--mist);">Hypnotic sequential tiles + shimmer on hover.</p>
+    </header>
+    <ul class="flm-demo-grid" style="margin-top:1.5rem;" data-flm-cascade-group role="list">
+      <li class="flm-demo-card flm-cascade flm-breath flm-shimmer" data-flm-cascade><h3>Charm</h3><p>A small favor for tonight.</p></li>
+      <li class="flm-demo-card flm-cascade flm-breath flm-shimmer" data-flm-cascade><h3>Veil</h3><p>Soft cover for the glance.</p></li>
+      <li class="flm-demo-card flm-cascade flm-breath flm-shimmer" data-flm-cascade><h3>Signal</h3><p>Let them know you’re near.</p></li>
+    </ul>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="flm-demo-section" id="rooms">
+    <header class="flm-rise" data-flm-reveal>
+      <p class="page-label">Rooms</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">Where to linger</h2>
+      <p style="margin:0; color:var(--mist);">Lounge air — cascade + breath.</p>
+    </header>
+    <ul class="flm-demo-grid" style="margin-top:1.5rem;" data-flm-cascade-group role="list">
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade><h3>Velvet Booth</h3><p>Low light, long looks.</p></li>
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade><h3>Spark Rail</h3><p>Standing room for the quick yes.</p></li>
+      <li class="flm-demo-card flm-cascade flm-breath" data-flm-cascade><h3>Quiet Corner</h3><p>When the pulse should soften.</p></li>
+    </ul>
+  </section>
+
+  <p style="padding:2rem 1.5rem 3rem; color:var(--mist); font-size:0.85rem;">
+    See <a href="MOTION-MAP.md">MOTION-MAP.md</a> · Sister: <a href="../motion-magickqal/demo.html">Magickqal motion</a>
+  </p>
+  <script src="felon-luv-motion.js"></script>
+</body>
+</html>

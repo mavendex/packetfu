@@ -1,0 +1,388 @@
+/* =============================================================================
+   Felon Luv — Motion Layer
+   Live spark · soft hypnosis · phantom magenta
+   Prefix: flm-
+   Animate transform + opacity ONLY.
+   prefers-reduced-motion → still site, no exceptions.
+   ============================================================================= */
+
+:root {
+  --flm-plum: #14081c;
+  --flm-phantom: #e056a8;
+  --flm-phantom-soft: #f0a8d0;
+  --flm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --flm-silk: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --flm-stagger: 110ms;
+  --flm-enter: 750ms;
+}
+
+/* —— Atmosphere: pink/magenta orbs + tiny sparkle dots —— */
+.flm-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.flm-orb {
+  position: absolute;
+  width: var(--flm-orb-size, 160px);
+  height: var(--flm-orb-size, 160px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(224, 86, 168, 0.42) 0%,
+    rgba(155, 45, 110, 0.12) 45%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  opacity: 0.55;
+  will-change: transform, opacity;
+  animation: flm-orb-drift var(--flm-orb-dur, 28s) var(--flm-silk) infinite;
+  animation-delay: var(--flm-orb-delay, 0s);
+}
+
+.flm-orb--soft {
+  background: radial-gradient(
+    circle at 45% 40%,
+    rgba(240, 168, 208, 0.35) 0%,
+    rgba(224, 86, 168, 0.1) 50%,
+    transparent 72%
+  );
+}
+
+.flm-spark {
+  position: absolute;
+  width: var(--flm-spark-size, 3px);
+  height: var(--flm-spark-size, 3px);
+  border-radius: 50%;
+  background: var(--flm-phantom-soft);
+  opacity: 0.35;
+  will-change: transform, opacity;
+  animation: flm-sparkle var(--flm-spark-dur, 5.5s) ease-in-out infinite;
+  animation-delay: var(--flm-spark-delay, 0s);
+}
+
+.flm-spark--bright {
+  background: #ffe0f2;
+  width: 4px;
+  height: 4px;
+}
+
+@keyframes flm-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.45;
+  }
+  35% {
+    transform: translate(5%, -7%) scale(1.06);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translate(-4%, 4%) scale(0.94);
+    opacity: 0.5;
+  }
+}
+
+@keyframes flm-sparkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(0) scale(0.75);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-12px) scale(1.2);
+  }
+  75% {
+    opacity: 0.4;
+    transform: translateY(-5px) scale(1);
+  }
+}
+
+/* —— Page enter —— */
+.flm-page-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: flm-rise-in 900ms var(--flm-ease) forwards;
+}
+
+@keyframes flm-rise-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* —— Home: wordmark + pulse line + hero copy —— */
+.flm-wordmark {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: flm-rise-in 1.1s var(--flm-ease) 0.15s forwards;
+}
+
+.flm-pulse-line {
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin: 0.65rem 0 1rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--flm-phantom), transparent);
+  transform-origin: left center;
+  animation: flm-pulse-breathe 3.6s var(--flm-silk) infinite;
+}
+
+@keyframes flm-pulse-breathe {
+  0%,
+  100% {
+    transform: scaleX(0.55);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.flm-hero-copy > *:not(.flm-pulse-line) {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: flm-rise-in 0.9s var(--flm-ease) forwards;
+}
+
+.flm-hero-copy > *:not(.flm-pulse-line):nth-child(1) {
+  animation-delay: 0.2s;
+}
+.flm-hero-copy > *:not(.flm-pulse-line):nth-child(2) {
+  animation-delay: 0.32s;
+}
+.flm-hero-copy > *:not(.flm-pulse-line):nth-child(3) {
+  animation-delay: 0.44s;
+}
+.flm-hero-copy > *:not(.flm-pulse-line):nth-child(4) {
+  animation-delay: 0.56s;
+}
+.flm-hero-copy > *:not(.flm-pulse-line):nth-child(5) {
+  animation-delay: 0.68s;
+}
+
+/* —— Scroll reveal (section heads) —— */
+.flm-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--flm-enter) var(--flm-ease),
+    transform var(--flm-enter) var(--flm-ease);
+}
+
+.flm-rise.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* —— Cascade cards (Discover / Shop / Rooms) — true stagger —— */
+.flm-cascade {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms var(--flm-ease),
+    transform 700ms var(--flm-ease);
+  transition-delay: calc(var(--flm-i, 0) * var(--flm-stagger));
+}
+
+.flm-cascade.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* —— Hover breath (magenta glow layer via opacity) —— */
+.flm-breath {
+  position: relative;
+  transition: transform 480ms var(--flm-ease);
+}
+
+.flm-breath::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(224, 86, 168, 0.35),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 480ms ease;
+  z-index: 0;
+}
+
+.flm-breath > * {
+  position: relative;
+  z-index: 1;
+}
+
+.flm-breath:hover,
+.flm-breath:focus-within {
+  transform: translateY(-4px);
+}
+
+.flm-breath:hover::before,
+.flm-breath:focus-within::before {
+  opacity: 1;
+}
+
+/* Cascade + breath share one transition so stagger delay is not wiped */
+.flm-cascade.flm-breath {
+  transition:
+    opacity 700ms var(--flm-ease),
+    transform 700ms var(--flm-ease);
+  transition-delay: calc(var(--flm-i, 0) * var(--flm-stagger));
+}
+
+.flm-cascade.flm-breath.is-in:hover,
+.flm-cascade.flm-breath.is-in:focus-within {
+  transition-delay: 0ms;
+  transform: translateY(-4px);
+}
+
+.flm-cascade.flm-breath.flm-shimmer {
+  transition:
+    opacity 700ms var(--flm-ease),
+    transform 700ms var(--flm-ease);
+  transition-delay: calc(var(--flm-i, 0) * var(--flm-stagger));
+}
+
+/* —— Live ember pip —— */
+.flm-ember {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--flm-phantom);
+  opacity: 0.65;
+  animation: flm-ember-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes flm-ember-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* —— Shop shimmer (translateX opacity mask) —— */
+.flm-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.flm-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(240, 168, 208, 0.22) 50%,
+    transparent 60%
+  );
+  opacity: 0;
+  transform: translateX(-40%);
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+.flm-shimmer:hover::after {
+  opacity: 1;
+  animation: flm-shimmer-pass 5s var(--flm-silk) infinite;
+}
+
+@keyframes flm-shimmer-pass {
+  0% {
+    transform: translateX(-45%);
+  }
+  100% {
+    transform: translateX(45%);
+  }
+}
+
+/* =============================================================================
+   Reduced motion — still site, no exceptions
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .flm-orb,
+  .flm-spark,
+  .flm-page-in,
+  .flm-wordmark,
+  .flm-pulse-line,
+  .flm-hero-copy > *:not(.flm-pulse-line),
+  .flm-ember,
+  .flm-shimmer:hover::after {
+    animation: none !important;
+  }
+
+  .flm-rise,
+  .flm-cascade,
+  .flm-cascade.flm-breath,
+  .flm-breath,
+  .flm-breath::before,
+  .flm-shimmer::after,
+  .flm-page-in,
+  .flm-wordmark,
+  .flm-hero-copy > *:not(.flm-pulse-line) {
+    transition: none !important;
+  }
+
+  .flm-orb {
+    opacity: 0.35;
+    transform: none;
+  }
+
+  .flm-spark {
+    opacity: 0.4;
+    transform: none;
+  }
+
+  .flm-page-in,
+  .flm-wordmark,
+  .flm-hero-copy > *,
+  .flm-rise,
+  .flm-cascade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .flm-pulse-line {
+    opacity: 0.85;
+    transform: scaleX(1);
+  }
+
+  .flm-ember {
+    opacity: 0.85;
+    transform: none;
+  }
+
+  .flm-breath:hover,
+  .flm-breath:focus-within {
+    transform: none;
+  }
+
+  .flm-breath:hover::before,
+  .flm-breath:focus-within::before {
+    opacity: 0.55;
+  }
+
+  .flm-shimmer:hover::after {
+    opacity: 0;
+    transform: none;
+  }
+}
