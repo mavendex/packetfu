@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magickqal — Motion Layer Demo</title>
+  <link rel="stylesheet" href="../dressing.css" />
+  <link rel="stylesheet" href="magickqal-motion.css" />
+  <style>
+    .mqm-demo-section { position: relative; z-index: 1; padding: 3.5rem 1.5rem; max-width: 960px; margin: 0 auto; }
+    .mqm-demo-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .mqm-demo-card { padding: 1.25rem; border-radius: 14px; border: 1px solid rgba(240, 208, 128, 0.14); background: linear-gradient(180deg, #2a1240, #160a22); }
+    .mqm-demo-card h3 { margin: 0 0 0.4rem; font-family: var(--font-display); color: var(--gold-bright); }
+    .mqm-demo-card p { margin: 0; color: var(--mist); font-size: 0.92rem; }
+    .mqm-hero-wrap { position: relative; min-height: 78vh; display: grid; place-items: end stretch; overflow: hidden;
+      background:
+        radial-gradient(ellipse 65% 50% at 50% 12%, rgba(212, 175, 90, 0.14), transparent 62%),
+        #0c0614; }
+    .mqm-hero-inner { position: relative; z-index: 2; padding: 3rem 1.5rem 3.5rem; max-width: 38rem; }
+    .mqm-hero-inner .brand { margin: 0; font-family: var(--font-display); font-size: clamp(2.8rem, 8vw, 4.6rem); font-weight: 600;
+      background: linear-gradient(120deg, #f0d080, #f0a8d0 55%, #d4af5a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #f0a8d0; }
+  </style>
+</head>
+<body class="dk-hall">
+  <!-- HALL HOME -->
+  <header class="mqm-hero-wrap" id="home">
+    <div class="mqm-atmosphere" aria-hidden="true">
+      <span class="mqm-orb" style="--mqm-orb-size:150px; top:10%; left:12%;"></span>
+      <span class="mqm-orb mqm-orb--phantom" style="--mqm-orb-size:120px; top:20%; right:12%; --mqm-orb-delay:-7s;"></span>
+      <span class="mqm-wisp" style="top:40%; left:8%; --mqm-wisp-dur:16s;"></span>
+      <span class="mqm-wisp" style="top:55%; right:10%; --mqm-wisp-delay:-5s;"></span>
+      <!-- Gold sparkle stars clustered near wordmark -->
+      <span class="mqm-star" style="top:58%; left:8%; --mqm-star-size:7px;"></span>
+      <span class="mqm-star" style="top:62%; left:18%; --mqm-star-delay:-1.2s; --mqm-star-size:5px;"></span>
+      <span class="mqm-star" style="top:54%; left:28%; --mqm-star-delay:-2.4s;"></span>
+      <span class="mqm-star" style="top:68%; left:14%; --mqm-star-delay:-0.6s; --mqm-star-size:4px;"></span>
+      <span class="mqm-star" style="top:50%; left:22%; --mqm-star-delay:-3.1s; --mqm-star-dur:8s;"></span>
+      <span class="mqm-mote" style="top:30%; left:40%;"></span>
+      <span class="mqm-mote" style="top:45%; left:65%; --mqm-mote-delay:-2s;"></span>
+      <span class="mqm-mote" style="top:70%; left:50%; --mqm-mote-delay:-1s;"></span>
+    </div>
+    <div class="mqm-hero-inner mqm-hero-copy">
+      <p class="page-label">Hall Home · Magickqal motion</p>
+      <p class="brand mqm-wordmark">Magickqal</p>
+      <span class="mqm-gold-rule mqm-gold-rule--brand" aria-hidden="true"></span>
+      <h1 style="margin:0.85rem 0; font-family:var(--font-display); font-style:italic; color:var(--gold-bright); font-size:1.55rem;">A swanky hall where magical people meet</h1>
+      <p style="margin:0 0 1.2rem; color:var(--mist);">Gold stars, gold rules, staggered rises, candelabra hover, knock draws — ceremonial.</p>
+      <p><a class="dk-btn dk-btn--luster" href="#spirits">Enter the hall</a></p>
+    </div>
+  </header>
+
+  <!-- SPIRITS -->
+  <section class="mqm-demo-section" id="spirits">
+    <header class="mqm-rise mqm-ruled" data-mqm-reveal>
+      <p class="page-label">Spirits</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">Spirits in the hall</h2>
+      <span class="mqm-gold-rule" aria-hidden="true"></span>
+      <p style="margin:0.75rem 0 0; color:var(--mist);">Staggered one after another. Hover lights the candelabra.</p>
+    </header>
+    <ul class="mqm-demo-grid" style="margin-top:1.5rem;" data-mqm-stagger-group role="list">
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Lumen Vesper</h3><p>Gold laugh, phantom glance.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Ash &amp; Orchid</h3><p>Wild wit in a velvet coat.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Mothglass</h3><p>Ethereal, not holy.</p></li>
+    </ul>
+  </section>
+
+  <!-- DRAW / KNOCK -->
+  <section class="mqm-demo-section" id="draw">
+    <header class="mqm-rise mqm-ruled" data-mqm-reveal>
+      <p class="page-label">Draw · Knock</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">Hall draw</h2>
+      <span class="mqm-gold-rule" aria-hidden="true"></span>
+      <p style="margin:0.75rem 0 0; color:var(--mist);">Click → soar, turn, settle face-up, slightly tilted.</p>
+    </header>
+    <div class="mqm-draw" style="margin-top:1.5rem;" role="group" aria-label="Knock draw demo">
+      <button type="button" class="mqm-draw-card" data-mqm-knock data-mqm-title="The Veil" aria-pressed="false" aria-label="Draw card one, face down">
+        <span class="mqm-draw-card__face mqm-draw-card__face--back" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">✦</span>
+          <span class="mqm-draw-card__label">Magickqal</span>
+        </span>
+        <span class="mqm-draw-card__face mqm-draw-card__face--front" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">☾</span>
+          <span class="mqm-draw-card__title">The Veil</span>
+          <span class="mqm-draw-card__hint">What wants to be seen</span>
+        </span>
+      </button>
+      <button type="button" class="mqm-draw-card" data-mqm-knock data-mqm-title="Candelabra" aria-pressed="false" aria-label="Draw card two, face down">
+        <span class="mqm-draw-card__face mqm-draw-card__face--back" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">✦</span>
+          <span class="mqm-draw-card__label">Magickqal</span>
+        </span>
+        <span class="mqm-draw-card__face mqm-draw-card__face--front" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">❖</span>
+          <span class="mqm-draw-card__title">Candelabra</span>
+          <span class="mqm-draw-card__hint">Warmth that gathers</span>
+        </span>
+      </button>
+      <button type="button" class="mqm-draw-card" data-mqm-knock data-mqm-title="Phantom" aria-pressed="false" aria-label="Draw card three, face down">
+        <span class="mqm-draw-card__face mqm-draw-card__face--back" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">✦</span>
+          <span class="mqm-draw-card__label">Magickqal</span>
+        </span>
+        <span class="mqm-draw-card__face mqm-draw-card__face--front" aria-hidden="true">
+          <span class="mqm-draw-card__sigil">◇</span>
+          <span class="mqm-draw-card__title">Phantom</span>
+          <span class="mqm-draw-card__hint">A spark in magenta</span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="mqm-demo-section" id="rooms">
+    <header class="mqm-rise mqm-ruled" data-mqm-reveal>
+      <p class="page-label">Rooms</p>
+      <h2 style="margin:0.3rem 0; font-family:var(--font-display);">Rooms on the shelf</h2>
+      <span class="mqm-gold-rule" aria-hidden="true"></span>
+      <p style="margin:0.75rem 0 0; color:var(--mist);">Stagger + candelabra hover.</p>
+    </header>
+    <ul class="mqm-demo-grid" style="margin-top:1.5rem;" data-mqm-stagger-group role="list">
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Velvet Lounge</h3><p>Candelabra corners.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Rune Alcove</h3><p>Quiet draws.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Mirror Gallery</h3><p>Luster on every frame.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Wisp Garden</h3><p>Wonderful, not godly.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Threshold</h3><p>Where the sisters meet.</p></li>
+      <li class="mqm-demo-card mqm-stagger mqm-candle" data-mqm-stagger><h3>Spark Circle</h3><p>Live glances, hall light.</p></li>
+    </ul>
+  </section>
+
+  <p style="padding:2rem 1.5rem 3rem; color:var(--mist); font-size:0.85rem;">
+    See <a href="MOTION-MAP.md">MOTION-MAP.md</a> · Sister: <a href="../motion/demo.html">Felon Luv motion</a>
+  </p>
+  <script src="magickqal-motion.js"></script>
+</body>
+</html>
