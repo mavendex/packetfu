@@ -1,0 +1,814 @@
+/* =============================================================================
+   Maven Dex Corps — Window-Dressing Kit
+   Felon Luv × Magickqal
+   Obsidian violet · phantom magenta · hall luster gold
+   Framework-agnostic. Prefix: .dk-
+   Animate transform / opacity / box-shadow only.
+   ============================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap");
+
+:root {
+  --obsidian: #0c0614;
+  --obsidian-mid: #160a22;
+  --violet: #2a1240;
+  --phantom: #e056a8;
+  --phantom-deep: #9b2d6e;
+  --phantom-soft: #f0a8d0;
+  --gold: #d4af5a;
+  --gold-bright: #f0d080;
+  --gold-deep: #a8842e;
+  --ivory: #f3ebe0;
+  --mist: #c9b8d4;
+  --line: rgba(240, 208, 128, 0.14);
+  --glow-candle: rgba(212, 175, 90, 0.45);
+  --glow-phantom: rgba(224, 86, 168, 0.35);
+  --radius: 12px;
+  --radius-card: 16px;
+  --font-display: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "Jost", "Century Gothic", "Trebuchet MS", sans-serif;
+  --ease-soar: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-settle: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-silk: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+/* —— Base (optional; omit if host app owns body) —— */
+.dk-hall {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(100% 70% at 50% -8%, rgba(212, 175, 90, 0.14) 0%, transparent 50%),
+    radial-gradient(70% 50% at 0% 40%, rgba(224, 86, 168, 0.08), transparent 55%),
+    radial-gradient(60% 45% at 100% 70%, rgba(42, 18, 64, 0.9), transparent 50%),
+    linear-gradient(180deg, var(--obsidian) 0%, var(--obsidian-mid) 45%, #100818 100%);
+  background-attachment: fixed;
+}
+
+.dk-hall *,
+.dk-hall *::before,
+.dk-hall *::after {
+  box-sizing: border-box;
+}
+
+.dk-skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--gold);
+  color: var(--obsidian);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  text-decoration: none;
+}
+
+.dk-skip:focus {
+  top: 1rem;
+}
+
+/* =============================================================================
+   Atmosphere — drifting orbs, wisps, motes
+   ============================================================================= */
+
+.dk-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dk-orb,
+.dk-wisp,
+.dk-mote {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+/* Soft luminous orbs — candelabra dust */
+.dk-orb {
+  width: var(--orb-size, 140px);
+  height: var(--orb-size, 140px);
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(240, 208, 128, 0.35) 0%,
+    rgba(224, 86, 168, 0.12) 40%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  animation: dk-orb-drift var(--orb-dur, 28s) var(--ease-silk) infinite;
+  animation-delay: var(--orb-delay, 0s);
+  opacity: 0.55;
+}
+
+.dk-orb--phantom {
+  background: radial-gradient(
+    circle at 45% 40%,
+    rgba(224, 86, 168, 0.4) 0%,
+    rgba(42, 18, 64, 0.15) 45%,
+    transparent 70%
+  );
+}
+
+.dk-orb--gold {
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(240, 208, 128, 0.45) 0%,
+    rgba(168, 132, 46, 0.1) 50%,
+    transparent 72%
+  );
+}
+
+/* Wisps — elongated sighs of light */
+.dk-wisp {
+  width: var(--wisp-w, 180px);
+  height: var(--wisp-h, 48px);
+  border-radius: 60% 40% 55% 45%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(240, 208, 128, 0.18),
+    rgba(224, 86, 168, 0.14),
+    transparent
+  );
+  filter: blur(8px);
+  animation: dk-wisp-float var(--wisp-dur, 16s) var(--ease-silk) infinite;
+  animation-delay: var(--wisp-delay, 0s);
+  opacity: 0.5;
+}
+
+/* Motes — tiny candle sparks */
+.dk-mote {
+  width: var(--mote-size, 4px);
+  height: var(--mote-size, 4px);
+  background: var(--gold-bright);
+  box-shadow: 0 0 6px var(--glow-candle);
+  animation: dk-mote-twinkle var(--mote-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--mote-delay, 0s);
+}
+
+.dk-mote--phantom {
+  background: var(--phantom-soft);
+  box-shadow: 0 0 6px var(--glow-phantom);
+}
+
+@keyframes dk-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(4%, -6%) scale(1.08);
+  }
+  66% {
+    transform: translate(-5%, 3%) scale(0.94);
+  }
+}
+
+@keyframes dk-wisp-float {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) rotate(-4deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(8%) translateY(-12%) rotate(6deg);
+    opacity: 0.65;
+  }
+}
+
+@keyframes dk-mote-twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0) scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.15);
+  }
+  70% {
+    opacity: 0.45;
+    transform: translateY(-4px) scale(1);
+  }
+}
+
+/* =============================================================================
+   Gold-gradient sweeps & candle glow
+   ============================================================================= */
+
+.dk-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.dk-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(240, 208, 128, 0.18) 48%,
+    rgba(224, 86, 168, 0.1) 52%,
+    transparent 65%
+  );
+  background-size: 220% 100%;
+  animation: dk-gold-sweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes dk-gold-sweep {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.dk-candle-glow {
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 90, 0.12),
+    0 0 24px rgba(212, 175, 90, 0.2);
+  transition: box-shadow 0.45s ease, border-color 0.45s ease;
+}
+
+.dk-candle-glow:hover,
+.dk-candle-glow:focus-visible {
+  border-color: rgba(212, 175, 90, 0.4);
+  animation: dk-candle-flicker 1.8s ease-in-out infinite;
+}
+
+@keyframes dk-candle-flicker {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 90, 0.14),
+      0 12px 36px rgba(0, 0, 0, 0.4),
+      0 0 22px rgba(212, 175, 90, 0.35);
+  }
+  40% {
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 90, 0.22),
+      0 12px 36px rgba(0, 0, 0, 0.4),
+      0 0 36px rgba(240, 208, 128, 0.55),
+      0 0 12px rgba(224, 86, 168, 0.2);
+  }
+  70% {
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 90, 0.12),
+      0 12px 36px rgba(0, 0, 0, 0.4),
+      0 0 16px rgba(168, 132, 46, 0.4);
+  }
+}
+
+/* =============================================================================
+   Buttons
+   ============================================================================= */
+
+.dk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.45rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--ease-settle),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.dk-btn:hover {
+  transform: translateY(-2px);
+}
+
+.dk-btn:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
+.dk-btn--luster {
+  position: relative;
+  overflow: hidden;
+  color: var(--obsidian);
+  background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+  box-shadow: 0 0 28px rgba(212, 175, 90, 0.35);
+}
+
+.dk-btn--luster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 48%,
+    transparent 62%
+  );
+  background-size: 200% 100%;
+  animation: dk-gold-sweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dk-btn--luster:hover {
+  color: var(--obsidian);
+  box-shadow: 0 0 40px rgba(240, 208, 128, 0.5);
+}
+
+.dk-btn--phantom {
+  color: var(--ivory);
+  background: linear-gradient(135deg, var(--phantom) 0%, var(--phantom-deep) 100%);
+  box-shadow: 0 0 24px var(--glow-phantom);
+}
+
+.dk-btn--phantom:hover {
+  color: var(--ivory);
+  box-shadow: 0 0 36px rgba(224, 86, 168, 0.5);
+}
+
+.dk-btn--ghost {
+  color: var(--ivory);
+  background: transparent;
+  border-color: var(--line);
+}
+
+.dk-btn--ghost:hover {
+  border-color: rgba(240, 208, 128, 0.45);
+  color: var(--gold-bright);
+  box-shadow: 0 0 18px rgba(212, 175, 90, 0.15);
+}
+
+/* =============================================================================
+   Hero
+   ============================================================================= */
+
+.dk-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(92vh, 840px);
+  display: grid;
+  place-items: end stretch;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 12%, rgba(212, 175, 90, 0.16), transparent 62%),
+    radial-gradient(ellipse 40% 35% at 78% 35%, rgba(224, 86, 168, 0.12), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 18% 55%, rgba(42, 18, 64, 0.8), transparent 65%),
+    linear-gradient(180deg, #0a0410 0%, var(--obsidian-mid) 55%, var(--obsidian) 100%);
+}
+
+.dk-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 30%, rgba(12, 6, 20, 0.55) 68%, rgba(12, 6, 20, 0.94) 100%);
+}
+
+.dk-hero__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 42rem;
+  width: min(100%, 720px);
+  padding: 4rem clamp(1.25rem, 6vw, 4.5rem) 3.5rem;
+}
+
+.dk-hero__brand {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 4.8rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+  text-shadow:
+    0 0 40px rgba(212, 175, 90, 0.25),
+    0 0 80px rgba(224, 86, 168, 0.15);
+}
+
+.dk-hero__brand--magickqal {
+  background: linear-gradient(120deg, var(--gold-bright), var(--phantom-soft) 55%, var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+.dk-hero__headline {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.dk-hero__lede {
+  margin: 0 0 1.6rem;
+  max-width: 34rem;
+  color: var(--mist);
+  font-size: 1.02rem;
+}
+
+.dk-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.dk-hero__sister {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--phantom-soft);
+}
+
+/* =============================================================================
+   Cards — shared dressing
+   ============================================================================= */
+
+.dk-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(165deg, rgba(240, 208, 128, 0.07), transparent 50%),
+    linear-gradient(180deg, var(--violet), var(--obsidian-mid));
+  color: var(--ivory);
+  transition:
+    transform 0.7s var(--ease-soar),
+    opacity 0.7s var(--ease-soar),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.dk-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 16% -1px 16%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--phantom), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.dk-card:hover::after {
+  opacity: 1;
+}
+
+/* —— Spirit cards (profiles / magical people) —— */
+.dk-spirit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.35rem 1.25rem 1.4rem;
+}
+
+.dk-spirit__aura {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, var(--gold-bright), var(--phantom) 55%, var(--violet) 100%);
+  box-shadow:
+    0 0 18px var(--glow-phantom),
+    0 0 8px var(--glow-candle);
+  flex-shrink: 0;
+}
+
+.dk-spirit__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+}
+
+.dk-spirit__tag {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--phantom-soft);
+}
+
+.dk-spirit__blurb {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--mist);
+}
+
+.dk-spirit__meta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(201, 184, 212, 0.75);
+}
+
+/* —— Shelf cards (offerings / rooms / filters) —— */
+.dk-shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dk-shelf-card {
+  padding: 1.35rem 1.25rem 1.4rem;
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+}
+
+.dk-shelf-card.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dk-shelf-card h3,
+.dk-shelf-card .dk-shelf-card__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+}
+
+.dk-shelf-card p,
+.dk-shelf-card .dk-shelf-card__blurb {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--mist);
+}
+
+/* —— Draw cards (tarot / runes) —— */
+.dk-draw {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+  perspective: 1200px;
+  max-width: 720px;
+  padding-top: 1.25rem; /* room for soar-and-turn lift */
+}
+
+.dk-draw-card {
+  position: relative;
+  aspect-ratio: 2 / 3.2;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.85s var(--ease-soar);
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-body);
+}
+
+.dk-draw-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+.dk-draw-card.is-flipped {
+  transform: translateY(-14px) rotateY(180deg) scale(1.02);
+}
+
+.dk-draw-card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.dk-draw-card__face--back {
+  background:
+    radial-gradient(circle at 50% 28%, rgba(224, 86, 168, 0.2), transparent 55%),
+    radial-gradient(circle at 50% 70%, rgba(212, 175, 90, 0.12), transparent 50%),
+    linear-gradient(160deg, var(--violet), var(--obsidian));
+  color: var(--gold-bright);
+}
+
+.dk-draw-card__face--front {
+  background:
+    linear-gradient(165deg, #f3ebe0 0%, #e8d5b5 55%, #d4af5a 140%);
+  color: var(--obsidian);
+  transform: rotateY(180deg);
+}
+
+.dk-draw-card__sigil {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.dk-draw-card__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.dk-draw-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+  text-align: center;
+}
+
+.dk-draw-card__hint {
+  font-size: 0.78rem;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* =============================================================================
+   Sections & chrome
+   ============================================================================= */
+
+.dk-banner {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(
+    90deg,
+    var(--obsidian) 0%,
+    var(--violet) 50%,
+    var(--obsidian) 100%
+  );
+  border-bottom: 1px solid var(--line);
+}
+
+.dk-banner__candle {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6d6, var(--gold) 55%, var(--gold-deep));
+  box-shadow: 0 0 12px var(--glow-candle);
+  animation: dk-candle-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes dk-candle-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow:
+      0 0 16px var(--glow-candle),
+      0 0 8px var(--glow-phantom);
+  }
+}
+
+.dk-banner__text {
+  margin: 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.dk-section {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 4rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dk-section__head {
+  margin-bottom: 2rem;
+  max-width: 36rem;
+}
+
+.dk-section__head h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  font-weight: 600;
+  color: var(--ivory);
+}
+
+.dk-section__head p {
+  margin: 0;
+  color: var(--mist);
+}
+
+.dk-spirit-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.dk-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 2rem clamp(1.25rem, 5vw, 4rem) 3rem;
+  border-top: 1px solid var(--line);
+  color: var(--mist);
+  font-size: 0.88rem;
+}
+
+.dk-foot p {
+  margin: 0;
+}
+
+/* Scroll reveal helper */
+[data-dk-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-settle), transform 0.8s var(--ease-settle);
+}
+
+[data-dk-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================================================
+   Reduced motion
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .dk-orb,
+  .dk-wisp,
+  .dk-mote,
+  .dk-banner__candle,
+  .dk-sweep::after,
+  .dk-btn--luster::before,
+  .dk-candle-glow:hover,
+  .dk-candle-glow:focus-visible {
+    animation: none !important;
+  }
+
+  .dk-shelf-card,
+  [data-dk-reveal],
+  .dk-draw-card,
+  .dk-btn {
+    transition: none !important;
+  }
+
+  .dk-shelf-card,
+  [data-dk-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .dk-draw-card.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .dk-orb,
+  .dk-wisp {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 520px) {
+  .dk-draw {
+    grid-template-columns: 1fr;
+    max-width: 220px;
+    margin-inline: auto;
+  }
+}
